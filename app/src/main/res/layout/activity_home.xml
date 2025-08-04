@@ -69,6 +69,11 @@
         android:layout_below="@id/valorTotal"
         android:layout_marginTop="8dp"
         android:text="Adicionar Saldo" />
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@id/valorTotal"
+        android:layout_marginTop="85dp" />
 
     <TextView
         android:id="@+id/analiseTitulo"
@@ -76,6 +81,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnAdicionarSaldo"
         android:layout_marginTop="16dp"
+        android:layout_below="@id/valorTotal"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/pieChart"
+        android:layout_marginTop="-210dp"
         android:text="Análise de gráficos"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -87,6 +96,9 @@
         android:layout_height="220dp"
         android:layout_below="@id/analiseTitulo"
         android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@id/analiseTitulo"
         android:layout_marginTop="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView

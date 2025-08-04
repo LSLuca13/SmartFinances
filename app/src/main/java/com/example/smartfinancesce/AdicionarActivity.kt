@@ -27,6 +27,18 @@ class AdicionarActivity : AppCompatActivity() {
             val valor = etValor.text.toString().toFloatOrNull()
             val categoria = etCategoria.text.toString()
             if (titulo.isNotBlank() && valor != null && categoria.isNotBlank()) {
+        val spCategoria = findViewById<Spinner>(R.id.spCategoria)
+
+        val categorias = arrayOf("Alimentação", "Transporte", "Outros")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spCategoria.adapter = adapter
+
+        btnAdicionar.setOnClickListener {
+            val titulo = etTitulo.text.toString()
+            val valor = etValor.text.toString().toFloatOrNull()
+            val categoria = spCategoria.selectedItem.toString()
+            if (titulo.isNotBlank() && valor != null) {
                 Thread {
                     ExpenseDatabase.getInstance(this).expenseDao()
                         .insert(Expense(title = titulo, amount = valor, category = categoria))

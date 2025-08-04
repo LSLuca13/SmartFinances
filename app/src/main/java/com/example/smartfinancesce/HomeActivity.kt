@@ -24,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
     private var expensesTotal = 0f
     private lateinit var tvValorTotal: TextView
 
+
     private fun colorForCategory(category: String): Int {
         return categoryColors.getOrPut(category) {
             val index = categoryColors.size % ColorTemplate.MATERIAL_COLORS.size
@@ -44,7 +45,6 @@ class HomeActivity : AppCompatActivity() {
         val btnSaldo = findViewById<Button>(R.id.btnAdicionarSaldo)
         tvValorTotal = findViewById(R.id.valorTotal)
         balance = getSharedPreferences("finance_prefs", MODE_PRIVATE).getFloat("balance", 0f)
-
         val adapter = ExpenseAdapter(::colorForCategory)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -76,6 +76,18 @@ class HomeActivity : AppCompatActivity() {
                 .setNegativeButton("Cancelar", null)
                 .show()
         }
+        }
+        val entries = listOf(
+            PieEntry(40f, "Alimentação"),
+            PieEntry(30f, "Transporte"),
+            PieEntry(30f, "Outros")
+        )
+        val dataSet = PieDataSet(entries, "")
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS.toList())
+        val data = PieData(dataSet)
+        pieChart.data = data
+        pieChart.description.isEnabled = false
+        pieChart.invalidate()
 
         ivInicio.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java)) // você já está na Home
