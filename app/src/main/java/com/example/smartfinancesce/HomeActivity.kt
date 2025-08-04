@@ -33,7 +33,6 @@ class HomeActivity : AppCompatActivity() {
         val ivInicio = findViewById<ImageView>(R.id.ivInicio)
         val pieChart = findViewById<PieChart>(R.id.pieChart)
         val recyclerView = findViewById<RecyclerView>(R.id.rvExpenses)
-
         val adapter = ExpenseAdapter(::colorForCategory)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -45,6 +44,18 @@ class HomeActivity : AppCompatActivity() {
                 .mapValues { entry -> entry.value.sumOf { it.amount.toDouble() }.toFloat() }
             setupPieChart(pieChart, totals)
         }
+=======
+        val entries = listOf(
+            PieEntry(40f, "Alimentação"),
+            PieEntry(30f, "Transporte"),
+            PieEntry(30f, "Outros")
+        )
+        val dataSet = PieDataSet(entries, "")
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS.toList())
+        val data = PieData(dataSet)
+        pieChart.data = data
+        pieChart.description.isEnabled = false
+        pieChart.invalidate()
 
         ivInicio.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java)) // você já está na Home
