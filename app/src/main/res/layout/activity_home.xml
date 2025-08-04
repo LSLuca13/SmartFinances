@@ -80,6 +80,14 @@
         android:layout_below="@id/analiseTitulo"
         android:layout_marginTop="16dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pieChart"
+        android:layout_marginTop="16dp"
+        android:layout_above="@id/menuInferior" />
+
 
 
     <LinearLayout
