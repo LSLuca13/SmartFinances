@@ -3,7 +3,6 @@ package com.example.smartfinancesce
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,12 +13,9 @@ class ContasFixasActivity : AppCompatActivity() {
 
         val btnProximaTela = findViewById<Button>(R.id.btnProximaTela)
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
-        btnVoltar.setOnClickListener {
-            finish()
-        }
 
         btnProximaTela.setOnClickListener {
-            val intent = Intent(this, AdicionarActivity::class.java)
+            val intent = Intent(this, AdicionarContaFixaActivity::class.java)
             startActivity(intent)
         }
 
