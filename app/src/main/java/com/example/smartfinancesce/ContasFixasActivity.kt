@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.smartfinancesce.data.FixedAccountDatabase
 
 class ContasFixasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,6 +16,15 @@ class ContasFixasActivity : AppCompatActivity() {
 
         val btnProximaTela = findViewById<Button>(R.id.btnProximaTela)
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
+        val recyclerView = findViewById<RecyclerView>(R.id.rvFixedAccounts)
+        val adapter = FixedAccountAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        FixedAccountDatabase.getInstance(this).fixedAccountDao().getAll()
+            .observe(this) { accounts ->
+                adapter.submitList(accounts)
+            }
 
         btnProximaTela.setOnClickListener {
             val intent = Intent(this, AdicionarContaFixaActivity::class.java)
