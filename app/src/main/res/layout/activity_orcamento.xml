@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-
         <ImageView
             android:id="@+id/btnVoltarHome"
             android:layout_width="24dp"
@@ -20,7 +19,6 @@
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="Voltar"
             android:layout_marginBottom="16dp" />
-
 
         <ImageView
             android:layout_width="48dp"
@@ -46,112 +44,55 @@
             android:layout_marginTop="24dp"
             android:textColor="#000000" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#F0F1F6"
-            android:elevation="2dp"
-            android:clipToOutline="true"
-            android:background="#F0F1F6">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="85%"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="#000000" />
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:progress="85"
-                android:progressTint="#6BFF92"
-                android:backgroundTint="#DADADA"
-                android:layout_marginTop="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="85% do orçamento"
-                android:textSize="12sp"
-                android:textColor="#999999"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-
         <TextView
+            android:id="@+id/tvTotalBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alimentação"
+            android:text="Total: R$0,00"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="#000000"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/btnAddTotalBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar orçamento mensal total"
             android:layout_marginTop="8dp" />
 
         <TextView
+            android:id="@+id/tvPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="50%"
+            android:text="0% do orçamento"
             android:textSize="14sp"
-            android:textColor="#000000"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="#000000" />
 
         <ProgressBar
+            android:id="@+id/pbBudget"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:progress="50"
+            android:progress="0"
+            android:max="100"
             android:progressTint="#6BFF92"
-            android:backgroundTint="#DADADA" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="R$500,00 restante"
-            android:textSize="12sp"
-            android:textColor="#999999"
-            android:layout_marginBottom="12dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Transporte"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="71%"
-            android:textSize="14sp"
-            android:textColor="#000000"
+            android:backgroundTint="#DADADA"
             android:layout_marginTop="4dp" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBudgets"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:progress="71"
-            android:progressTint="#6BFF92"
-            android:backgroundTint="#DADADA" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
 
-        <TextView
+        <Button
+            android:id="@+id/btnAddBudgetType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="R$200,00 restante"
-            android:textSize="12sp"
-            android:textColor="#999999"
-            android:layout_marginBottom="24dp" />
+            android:text="Adicionar tipos de orçamento"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </ScrollView>
