@@ -103,18 +103,30 @@ class HomeActivity : AppCompatActivity() {
     private fun setupPieChart(pieChart: PieChart, values: Map<String, Float>) {
         val entries = values.map { PieEntry(it.value, it.key) }
         val dataSet = PieDataSet(entries, "")
+
+        // Cores para cada categoria
         val colors = entries.map { colorForCategory(it.label) }
         dataSet.colors = colors
+
         val data = PieData(dataSet)
-        data.setValueTextSize(14f)
+
+        data.setValueTextSize(16f)
         data.setValueTextColor(Color.BLACK)
-        pieChart.data = data
+
         pieChart.setEntryLabelTextSize(14f)
-        pieChart.legend.textSize = 14f
+        pieChart.setEntryLabelColor(Color.BLACK)
+
+        val legend = pieChart.legend
+        legend.textSize = 16f
+        legend.textColor = Color.BLACK
+        legend.isWordWrapEnabled = true
+
+        pieChart.data = data
         pieChart.description.isEnabled = false
         pieChart.setUsePercentValues(true)
         pieChart.invalidate()
     }
+
 
     private fun updateBalanceDisplay() {
         tvValorTotal.text = String.format("R$ %.2f", balance - expensesTotal)
