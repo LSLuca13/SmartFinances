@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartfinancesce.data.BudgetItem
 import org.json.JSONArray
 import org.json.JSONObject
+import androidx.recyclerview.widget.RecyclerView
+import com.example.smartfinancesce.data.BudgetItem
 
 class OrcamentoActivity : AppCompatActivity() {
 
@@ -45,11 +47,15 @@ class OrcamentoActivity : AppCompatActivity() {
             adapter = this@OrcamentoActivity.adapter
             isNestedScrollingEnabled = false
         }
+        adapter = BudgetAdapter()
+        findViewById<RecyclerView>(R.id.rvBudgets).adapter = adapter
 
         findViewById<Button>(R.id.btnAddTotalBudget).setOnClickListener { showAddTotalDialog() }
         findViewById<Button>(R.id.btnAddBudgetType).setOnClickListener { showAddItemDialog() }
 
         loadData()
+        updateProgress()
+
     }
 
     private fun showAddTotalDialog() {
@@ -63,6 +69,7 @@ class OrcamentoActivity : AppCompatActivity() {
                 totalBudget = input.text.toString().toDoubleOrNull() ?: 0.0
                 updateProgress()
                 saveData()
+
             }
             .setNegativeButton("Cancelar", null)
             .show()
@@ -101,6 +108,7 @@ class OrcamentoActivity : AppCompatActivity() {
                     adapter.submitList(budgetItems.toList())
                     updateProgress()
                     saveData()
+
                 }
             }
             .setNegativeButton("Cancelar", null)
@@ -141,6 +149,7 @@ class OrcamentoActivity : AppCompatActivity() {
             adapter.submitList(budgetItems.toList())
         }
         updateProgress()
+
     }
 }
 
