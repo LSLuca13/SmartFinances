@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import android.graphics.Color
 
 class HomeActivity : AppCompatActivity() {
 
@@ -105,7 +106,11 @@ class HomeActivity : AppCompatActivity() {
         val colors = entries.map { colorForCategory(it.label) }
         dataSet.colors = colors
         val data = PieData(dataSet)
+        data.setValueTextSize(14f)
+        data.setValueTextColor(Color.BLACK)
         pieChart.data = data
+        pieChart.setEntryLabelTextSize(14f)
+        pieChart.legend.textSize = 14f
         pieChart.description.isEnabled = false
         pieChart.setUsePercentValues(true)
         pieChart.invalidate()
