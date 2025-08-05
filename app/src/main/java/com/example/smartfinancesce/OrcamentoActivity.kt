@@ -2,10 +2,16 @@ package com.example.smartfinancesce
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.smartfinancesce.data.BudgetItem
+import org.json.JSONArray
+import org.json.JSONObject
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartfinancesce.data.BudgetItem
 
@@ -17,6 +23,7 @@ class OrcamentoActivity : AppCompatActivity() {
     private lateinit var tvTotalBudget: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var tvPercent: TextView
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +39,23 @@ class OrcamentoActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.pbBudget)
         tvPercent = findViewById(R.id.tvPercent)
 
+        prefs = getSharedPreferences("budget_prefs", MODE_PRIVATE)
+
+        adapter = BudgetAdapter()
+        findViewById<RecyclerView>(R.id.rvBudgets).apply {
+            layoutManager = LinearLayoutManager(this@OrcamentoActivity)
+            adapter = this@OrcamentoActivity.adapter
+            isNestedScrollingEnabled = false
+        }
         adapter = BudgetAdapter()
         findViewById<RecyclerView>(R.id.rvBudgets).adapter = adapter
 
         findViewById<Button>(R.id.btnAddTotalBudget).setOnClickListener { showAddTotalDialog() }
         findViewById<Button>(R.id.btnAddBudgetType).setOnClickListener { showAddItemDialog() }
 
+        loadData()
         updateProgress()
+
     }
 
     private fun showAddTotalDialog() {
@@ -51,6 +68,8 @@ class OrcamentoActivity : AppCompatActivity() {
             .setPositiveButton("Salvar") { _, _ ->
                 totalBudget = input.text.toString().toDoubleOrNull() ?: 0.0
                 updateProgress()
+                saveData()
+
             }
             .setNegativeButton("Cancelar", null)
             .show()
@@ -88,6 +107,8 @@ class OrcamentoActivity : AppCompatActivity() {
                     budgetItems.add(BudgetItem(name, value))
                     adapter.submitList(budgetItems.toList())
                     updateProgress()
+                    saveData()
+
                 }
             }
             .setNegativeButton("Cancelar", null)
@@ -100,6 +121,35 @@ class OrcamentoActivity : AppCompatActivity() {
         progressBar.progress = percent.coerceAtMost(100)
         tvPercent.text = "$percent% do orçamento"
         tvTotalBudget.text = String.format("Total: R$ %.2f", totalBudget)
+    }
+
+    private fun saveData() {
+        val itemsArray = JSONArray()
+        for (item in budgetItems) {
+            val obj = JSONObject()
+            obj.put("name", item.name)
+            obj.put("amount", item.amount)
+            itemsArray.put(obj)
+        }
+        prefs.edit()
+            .putString("items", itemsArray.toString())
+            .putFloat("total", totalBudget.toFloat())
+            .apply()
+    }
+
+    private fun loadData() {
+        totalBudget = prefs.getFloat("total", 0f).toDouble()
+        val itemsString = prefs.getString("items", null)
+        if (!itemsString.isNullOrEmpty()) {
+            val array = JSONArray(itemsString)
+            for (i in 0 until array.length()) {
+                val obj = array.getJSONObject(i)
+                budgetItems.add(BudgetItem(obj.getString("name"), obj.getDouble("amount")))
+            }
+            adapter.submitList(budgetItems.toList())
+        }
+        updateProgress()
+
     }
 }
 
