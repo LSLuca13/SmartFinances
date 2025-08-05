@@ -26,6 +26,7 @@
         <activity android:name=".ContaActivity" android:exported="false" />
         <activity android:name=".OrcamentoActivity" android:exported="false" />
         <activity android:name=".AdicionarActivity" android:exported="false" />
+        <activity android:name=".AdicionarContaFixaActivity" android:exported="false" />
         <activity android:name=".ContasFixasActivity" android:exported="false" />
         <activity android:name=".NotificacaoActivity" android:exported="false" />
 
